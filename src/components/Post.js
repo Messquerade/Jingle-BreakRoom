@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 function Post(props) {
   return(
-    <div>
+    <div class='card'>
       <img src={props.profImg} alt='profile Img' />
       <h1>{props.author}</h1>
       <p>{props.date}</p>
