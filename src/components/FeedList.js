@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 function FeedList(props) {
   return(
     <React.Fragment>
-      {props.postList.map((post, index) =>
+      {Object.values(props.postList).map((post) =>
       <Post 
         author={post.author}
         message={post.message}
@@ -14,7 +14,9 @@ function FeedList(props) {
         downVotes={post.downVotes}
         profImg={post.profImg}
         id={post.id}
-        key={index}
+        key={post.id}
+        onUpVote={props.onUpVote}
+        onDownVote={props.onDownVote}
       />
       )}
     </React.Fragment>
@@ -22,7 +24,9 @@ function FeedList(props) {
 }
 
 FeedList.propTypes = {
-  postList: PropTypes.array
+  postList: PropTypes.object,
+  onUpVote: PropTypes.func,
+  onDownVote: PropTypes.func
 }
 
 export default FeedList;
