@@ -1,6 +1,7 @@
 import React from 'react';
 import FeedList from './FeedList';
 import NewPost from './NewPost';
+import EditPost from './EditPost';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import PostDetail from './PostDetail';
@@ -20,6 +21,13 @@ handleNewPostCreation = (newPost) => {
   const { dispatch } = this.props;
   const action = a.addPost(newPost);
   dispatch(action);
+}
+
+handleEditPostSubmission = (newPost) => {
+  const {dispatch } = this.props;
+  const action = a.addPost(newPost);
+  dispatch(action);
+  this.setState({editing: false, selectedPost: null})
 }
 
 handleDeletePost = (id) => {
@@ -49,15 +57,31 @@ handleDownVote = (id) => {
   dispatch(action);
 }
 
+handleClickReturn = () => {
+  this.setState({
+    selectedPost: null,
+    editing: false
+  })
+}
+
 
 render(){
   let currentlyVisibleState = null;
+  let newPostVisible = <NewPost onNewPostCreation={this.handleNewPostCreation}/>;
 
-  if (this.state.selectedPost != null)  {
+  if(this.state.selectedPost != null && this.state.editing) {
+    newPostVisible = null;
+    currentlyVisibleState = <EditPost
+      post={this.state.selectedPost}
+      onEditPost={this.handleEditPostSubmission}
+      onReturn={this.handleClickReturn}
+      />
+  } else if (this.state.selectedPost != null)  {
     currentlyVisibleState = <PostDetail 
       post={this.state.selectedPost}
       onClickDelete={this.handleDeletePost}
-      onClickEdit={this.handleEditPost}
+      onClickEdit={this.handleEditClick}
+      onReturn={this.handleClickReturn}
       />
   } else {
     currentlyVisibleState = <FeedList 
@@ -69,7 +93,7 @@ render(){
   }
   return(
     <React.Fragment>
-      <NewPost onNewPostCreation={this.handleNewPostCreation}/>
+      {newPostVisible}
       <hr/>
       {currentlyVisibleState}
     </React.Fragment>

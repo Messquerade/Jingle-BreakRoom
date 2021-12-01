@@ -6,7 +6,7 @@ function PostDetail(props){
     width: '100px'
   }
   
-  const { post, onClickDelete, onClickEdit } = props;
+  const { post, onClickDelete, onClickEdit, onReturn } = props;
   
   function handleDeletePost() {
     return onClickDelete(post.id);
@@ -24,6 +24,7 @@ function PostDetail(props){
       <p>up votes:{post.upVotes} down votes: {post.downVotes}</p>
       <button onClick={() => handleDeletePost()}>Delete</button>
       <button onClick={() => onClickEdit()}>Edit</button>
+      <button onClick={() => onReturn()}>Return to Feed</button>
     </div>
   );
 }
@@ -31,7 +32,8 @@ function PostDetail(props){
 PostDetail.propTypes = {
   post: PropTypes.object,
   onClickDelete: PropTypes.func,
-  onClickEdit: PropTypes.func
+  onClickEdit: PropTypes.func,
+  onReturn: PropTypes.func,
 }
 
 export default PostDetail;

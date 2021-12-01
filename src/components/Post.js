@@ -19,13 +19,15 @@ function Post(props) {
   }
 
   return(
-    <div className='card' onClick={() => handleChangeDetail()}>
-      <img src={props.profImg} alt='profile Img' style={imageStyle}/>
-      <h1>{props.author}</h1>
-      <p>{props.date}</p>
-      <hr/>
-      <p>{props.message}</p>
-      <p>up votes:{props.upVotes} down votes: {props.downVotes}</p>
+    <div className='card'>
+      <div onClick={() => handleChangeDetail()}>
+        <img src={props.profImg} alt='profile Img' style={imageStyle}/>
+        <h1>{props.author}</h1>
+        <p>{props.date}</p>
+        <hr/>
+        <p>{props.message}</p>
+        <p>up votes:{props.upVotes} down votes: {props.downVotes}</p>
+      </div>
       <button onClick={()=> handleUpVote()} className='btn'>⬆️</button>
       <button onClick={()=> handleDownVote()} className='btn'>⬇️</button>
     </div>
