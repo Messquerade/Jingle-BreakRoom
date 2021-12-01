@@ -10,12 +10,16 @@ function Post(props) {
     return props.onUpVote(props.id);
   }
 
+  function handleChangeDetail() {
+    return props.onClickDetail(props.id);
+  }
+
   function handleDownVote() {
     return props.onDownVote(props.id);
   }
 
   return(
-    <div className='card'>
+    <div className='card' onClick={() => handleChangeDetail()}>
       <img src={props.profImg} alt='profile Img' style={imageStyle}/>
       <h1>{props.author}</h1>
       <p>{props.date}</p>
@@ -37,7 +41,8 @@ Post.propTypes = {
   profImg: PropTypes.string,
   id: PropTypes.string,
   onUpVote: PropTypes.func,
-  onDownVote: PropTypes.func
+  onDownVote: PropTypes.func,
+  onClickDetail: PropTypes.func
 };
 
 export default Post;

@@ -1,7 +1,9 @@
+import * as c from '../actions/ActionsTypes';
+
 export default (state = {}, action) => {
   const { author, message, date, upVotes, downVotes, profImg, id } = action;
   switch(action.type) {
-    case 'ADD_POST':
+    case c.ADD_POST:
       return Object.assign({}, state, {
         [id]:{
           author: author,
@@ -13,15 +15,15 @@ export default (state = {}, action) => {
           id: id 
         }
       });
-    case 'DELETE_POST':
+    case c.DELETE_POST:
       let newState = {...state};
       delete newState[id];
       return newState;
-    case 'UP_VOTE':
+    case c.UP_VOTE:
       let upState = {...state};
       upState[id].upVotes += 1;
       return upState;
-    case 'DOWN_VOTE':
+    case c.DOWN_VOTE:
       let downState = {...state};
       downState[id].downVotes += 1;
       return downState;

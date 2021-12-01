@@ -18,7 +18,6 @@ class FeedControl extends React.Component {
 
 handleNewPostCreation = (newPost) => {
   const { dispatch } = this.props;
-  const { author, message, date, upVotes, downVotes, profImg, id } = newPost;
   const action = a.addPost(newPost);
   dispatch(action);
 }
@@ -27,6 +26,7 @@ handleDeletePost = (id) => {
   const { dispatch } = this.props;
   const action = a.deletePost(id)
   dispatch(action);
+  this.setState({selectedPost: null})
 }
 
 handleEditClick = () => {
@@ -38,34 +38,14 @@ handleChangingSelectPost = (id) => {
   this.setState({selectedPost: selectedPost})
 }
 
-handleUpVote = (postId) => {
+handleUpVote = (id) => {
   const { dispatch } = this.props;
-  const { author, message, date, upVotes, downVotes, profImg, id } = this.props.mainPostList[postId];
-  const action ={
-    type: 'UP_VOTE',
-    author: author,
-    message: message,
-    date: date,
-    upVotes: upVotes + 1,
-    downVotes: downVotes,
-    profImg: profImg,
-    id: id
-  }
+  const action = a.upVote(id)
   dispatch(action);
 }
-handleDownVote = (postId) => {
+handleDownVote = (id) => {
   const { dispatch } = this.props;
-  const { author, message, date, upVotes, downVotes, profImg, id } = this.props.mainPostList[postId];
-  const action ={
-    type: 'DOWN_VOTE',
-    author: author,
-    message: message,
-    date: date,
-    upVotes: upVotes,
-    downVotes: downVotes + 1,
-    profImg: profImg,
-    id: id
-  }
+  const action = a.downVote(id);
   dispatch(action);
 }
 
@@ -84,6 +64,7 @@ render(){
     postList={this.props.mainPostList}
     onUpVote={this.handleUpVote}
     onDownVote={this.handleDownVote}
+    onClickDetail={this.handleChangingSelectPost}
     />
   }
   return(

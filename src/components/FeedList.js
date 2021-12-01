@@ -17,6 +17,7 @@ function FeedList(props) {
         key={post.id}
         onUpVote={props.onUpVote}
         onDownVote={props.onDownVote}
+        onClickDetail={props.onClickDetail}
       />
       )}
     </React.Fragment>
@@ -26,7 +27,8 @@ function FeedList(props) {
 FeedList.propTypes = {
   postList: PropTypes.object,
   onUpVote: PropTypes.func,
-  onDownVote: PropTypes.func
+  onDownVote: PropTypes.func,
+  onClickDetail: PropTypes.func
 }
 
 export default FeedList;

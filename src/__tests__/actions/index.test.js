@@ -1,9 +1,10 @@
 import * as a from '../../actions';
+import * as c from '../../actions/ActionsTypes'
 
 describe('jingle break room actions', () => {
   it('deletePost should create DELETE_POST action', () => {
     expect(a.deletePost(1)).toEqual({
-      type: 'DELETE_POST',
+      type: c.DELETE_POST,
       id: 1
     });
   });
@@ -17,7 +18,7 @@ describe('jingle break room actions', () => {
       profImg: 'catURL',
       id: 1}))
       .toEqual({
-      type: 'ADD_POST',
+      type: c.ADD_POST,
       author: 'billy',
       message: 'theres no bathrooms',
       date: 'today',
@@ -30,14 +31,14 @@ describe('jingle break room actions', () => {
 
   it('upVote should create UP_VOTE action', () => {
     expect(a.upVote(1)).toEqual({
-      type: 'UP_VOTE',
+      type: c.UP_VOTE,
       id: 1
     })
   });
   
   it('downVote should create DOWN_VOTE action', () => {
     expect(a.downVote(1)).toEqual({
-      type: 'DOWN_VOTE',
+      type: c.DOWN_VOTE,
       id: 1
     })
   });
