@@ -4,6 +4,7 @@ import NewPost from './NewPost';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import PostDetail from './PostDetail';
+import * as a from '../actions'
 
 class FeedControl extends React.Component {
   constructor(props) {
@@ -14,33 +15,17 @@ class FeedControl extends React.Component {
     }
   };
 
-// Post will have a author, profile image, message, date, number of upvotes, number of downvotes
-
-// feedList needs to be arranged by upvotes -- maybe in the reducer itself sort before the return?
-// part of the method on FeedControl?
 
 handleNewPostCreation = (newPost) => {
   const { dispatch } = this.props;
   const { author, message, date, upVotes, downVotes, profImg, id } = newPost;
-  const action ={
-    type: 'ADD_POST',
-    author: author,
-    message: message,
-    date: date,
-    upVotes: upVotes,
-    downVotes: downVotes,
-    profImg: profImg,
-    id: id
-  }
+  const action = a.addPost(newPost);
   dispatch(action);
 }
 
 handleDeletePost = (id) => {
   const { dispatch } = this.props;
-  const action = {
-    type: 'DELETE_TICKET',
-    id: id
-  }
+  const action = a.deletePost(id)
   dispatch(action);
 }
 
@@ -57,7 +42,7 @@ handleUpVote = (postId) => {
   const { dispatch } = this.props;
   const { author, message, date, upVotes, downVotes, profImg, id } = this.props.mainPostList[postId];
   const action ={
-    type: 'ADD_POST',
+    type: 'UP_VOTE',
     author: author,
     message: message,
     date: date,
@@ -72,7 +57,7 @@ handleDownVote = (postId) => {
   const { dispatch } = this.props;
   const { author, message, date, upVotes, downVotes, profImg, id } = this.props.mainPostList[postId];
   const action ={
-    type: 'ADD_POST',
+    type: 'DOWN_VOTE',
     author: author,
     message: message,
     date: date,
@@ -120,7 +105,7 @@ FeedControl.propTypes = {
 
 const sortByVote = (postList) => {
   const postArray = Object.entries(postList);
-  const sortedArray = postArray.sort((a,b) => b[1].upVotes - a[1].upVotes);
+  const sortedArray = postArray.sort((a,b) => (b[1].upVotes - b[1].downVotes) - (a[1].upVotes - a[1].downVotes));
   return Object.fromEntries(sortedArray)
 }
 
@@ -137,8 +122,6 @@ if (state === undefined){
     mainPostList: sortedState
   };
 }
-
-
 
 };
 

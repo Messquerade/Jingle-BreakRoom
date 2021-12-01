@@ -17,6 +17,14 @@ export default (state = {}, action) => {
       let newState = {...state};
       delete newState[id];
       return newState;
+    case 'UP_VOTE':
+      let upState = {...state};
+      upState[id].upVotes += 1;
+      return upState;
+    case 'DOWN_VOTE':
+      let downState = {...state};
+      downState[id].downVotes += 1;
+      return downState;
     default:
       return state;
   }

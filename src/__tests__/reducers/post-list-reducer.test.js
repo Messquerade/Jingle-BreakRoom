@@ -62,5 +62,59 @@ describe('postListReducer', () => {
       type: 'DELETE_POST',
       id:1
     }
-  })
+    expect(postListReducer(currentState, action)).toEqual({
+    2: {author: 'Bobby Elff',
+    message: 'this is the second post',
+    date: 'January',
+    upVotes: 0,
+    downVotes: 0,
+    profImg: 'https://cataas.com/cat?width=100',
+    id: '2'}
+    });
+  });
+  test('should successfully increment upVotes on post', () => {
+    action = {
+      type: 'UP_VOTE',
+      id: 1
+    }
+    expect(postListReducer(currentState, action)).toEqual({
+      1: {author: 'Sally Elf',
+      message: 'this is my first post',
+      date: 'March',
+      upVotes: 1,
+      downVotes: 0,
+      profImg: 'https://cataas.com/cat?width=100',
+      id: '1'},
+      2: {author: 'Bobby Elff',
+      message: 'this is the second post',
+      date: 'January',
+      upVotes: 0,
+      downVotes: 0,
+      profImg: 'https://cataas.com/cat?width=100',
+      id: '2'}
+    });
+  });
+
+  test('should successfully increment downVotes on post', () => {
+    action = {
+      type: 'DOWN_VOTE',
+      id: 1
+    }
+    expect(postListReducer(currentState, action)).toEqual({
+      1: {author: 'Sally Elf',
+      message: 'this is my first post',
+      date: 'March',
+      upVotes: 1,
+      downVotes: 1,
+      profImg: 'https://cataas.com/cat?width=100',
+      id: '1'},
+      2: {author: 'Bobby Elff',
+      message: 'this is the second post',
+      date: 'January',
+      upVotes: 0,
+      downVotes: 0,
+      profImg: 'https://cataas.com/cat?width=100',
+      id: '2'}
+    });
+  });
 });
