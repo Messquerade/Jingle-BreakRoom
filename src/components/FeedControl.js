@@ -118,13 +118,27 @@ FeedControl.propTypes = {
   mainPostList: PropTypes.object
 };
 
+const sortByVote = (postList) => {
+  const postArray = Object.entries(postList);
+  const sortedArray = postArray.sort((a,b) => b[1].upVotes - a[1].upVotes);
+  return Object.fromEntries(sortedArray)
+}
+
 const mapStateToProps = state => {
 
+if (state === undefined){
+  return {
+    mainPostList: state
+  };
   
-    return {
-      mainPostList: state
-    };
-  
+}else{
+  const sortedState = sortByVote(state);
+  return {
+    mainPostList: sortedState
+  };
+}
+
+
 
 };
 
